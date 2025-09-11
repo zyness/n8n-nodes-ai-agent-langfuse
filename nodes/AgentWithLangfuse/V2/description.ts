@@ -4,7 +4,7 @@ import { getBatchingOptionFields } from '../../../src/utils/sharedFields';
 
 import { commonOptions } from '../../../src/utils/options';
 
-const enableStreaminOption: INodeProperties = {
+const enableStreamingOption: INodeProperties = {
     displayName: 'Enable Streaming',
     name: 'enableStreaming',
     type: 'boolean',
@@ -24,25 +24,7 @@ export const getToolsAgentProperties = ({
             options: [
                 ...commonOptions,
                 getBatchingOptionFields(undefined, 1),
-                ...(withStreaming ? [enableStreaminOption] : []),
+                enableStreamingOption,
             ],
-            displayOptions: {
-                hide: {
-                    '@version': [{ _cnd: { lt: 2.2 } }],
-                },
-            },
-        },
-        {
-            displayName: 'Options',
-            name: 'options',
-            type: 'collection',
-            default: {},
-            placeholder: 'Add Option',
-            options: [...commonOptions, getBatchingOptionFields(undefined, 1)],
-            displayOptions: {
-                show: {
-                    '@version': [{ _cnd: { lt: 2.2 } }],
-                },
-            },
         },
     ];

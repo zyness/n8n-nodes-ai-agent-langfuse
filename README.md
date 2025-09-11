@@ -146,4 +146,4 @@ Here’s how a single request looks inside Langfuse:
 
 ## Version History
 
-- **v1.0** – Initial release with OpenAI + Langfuse integration
+- **v0.1** – Initial release with AI Agent + Langfuse integration
