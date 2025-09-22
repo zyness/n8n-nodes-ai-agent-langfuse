@@ -2,7 +2,7 @@ import type { DynamicStructuredToolInput } from '@langchain/core/tools';
 import { DynamicStructuredTool, DynamicTool } from '@langchain/core/tools';
 import { StructuredOutputParser } from 'langchain/output_parsers';
 import type { ISupplyDataFunctions, IDataObject } from 'n8n-workflow';
-import { NodeConnectionTypes, jsonParse, NodeOperationError } from 'n8n-workflow';
+import { jsonParse, NodeOperationError } from 'n8n-workflow';
 import type { ZodTypeAny } from 'zod';
 import { ZodBoolean, ZodNullable, ZodNumber, ZodObject, ZodOptional } from 'zod';
 
@@ -97,8 +97,8 @@ export class N8nTool extends DynamicStructuredTool<any> {
 
                 return result;
             } catch (e) {
-                const { index } = context.addInputData(NodeConnectionTypes.AiTool, [[{ json: { query } }]]);
-                void context.addOutputData(NodeConnectionTypes.AiTool, index, e);
+                const { index } = context.addInputData('ai_tool', [[{ json: { query } }]]);
+                void context.addOutputData('ai_tool', index, e);
 
                 return e.toString();
             }

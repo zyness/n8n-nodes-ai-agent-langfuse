@@ -40,7 +40,7 @@
         "nodes/**/*",
         "nodes/**/*.json",
         "package.json",
-        "src/types",
-        "src/utils",
+        "src",
+        "src/V2",
     ],
 }

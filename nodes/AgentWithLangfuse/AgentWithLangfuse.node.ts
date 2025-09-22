@@ -1,4 +1,3 @@
-import { NodeConnectionTypes } from 'n8n-workflow';
 import type {
 	IExecuteFunctions,
 	INodeExecutionData,
@@ -6,7 +5,7 @@ import type {
 	INodeTypeDescription,
 } from 'n8n-workflow';
 
-import { promptTypeOptions, textFromPreviousNode, textInput } from '../../src/utils/descriptions';
+import { promptTypeOptions, textFromPreviousNode, textInput } from './src/utils/descriptions';
 // import { getInputs } from './utils';
 import { getToolsAgentProperties } from './V2/description';
 import { toolsAgentExecute } from './V2/execute';
@@ -37,12 +36,15 @@ export class AgentWithLangfuse implements INodeType {
 			},
 		},
 		inputs: `={{
-			((hasOutputParser, needsFallback) => {
-				${getInputs.toString()};
-				return getInputs(true, hasOutputParser, needsFallback);
-			})($parameter.hasOutputParser === undefined || $parameter.hasOutputParser === true, $parameter.needsFallback !== undefined && $parameter.needsFallback === true)
-		}}`,
-		outputs: [NodeConnectionTypes.Main],
+				((hasOutputParser, needsFallback) => {
+					${getInputs.toString()};
+					return getInputs(true, hasOutputParser, needsFallback);
+				})(
+					!!$parameter.hasOutputParser, 
+					!!$parameter.needsFallback   
+					)
+			}}`,
+		outputs: ['main'],
 		credentials: [
 			{ name: 'langfuseApi', required: true },
 		],
@@ -93,7 +95,7 @@ export class AgentWithLangfuse implements INodeType {
 				noDataExpression: true,
 			},
 			{
-				displayName: `Connect an <a data-action='openSelectiveNodeCreator' data-action-parameter-connectiontype='${NodeConnectionTypes.AiOutputParser}'>output parser</a> on the canvas to specify the output format you require`,
+				displayName: `Connect an <a data-action='openSelectiveNodeCreator' data-action-parameter-connectiontype='ai_outputParser'>output parser</a> on the canvas to specify the output format you require`,
 				name: 'notice',
 				type: 'notice',
 				default: '',

@@ -44,28 +44,10 @@ export function getInputs(
         {
             type: 'ai_languageModel',
             displayName: 'Chat Model',
-            required: true,
-            filter: {
-                excludedNodes: [
-                    '@n8n/n8n-nodes-langchain.lmCohere',
-                    '@n8n/n8n-nodes-langchain.lmOllama',
-                    'n8n/n8n-nodes-langchain.lmOpenAi',
-                    '@n8n/n8n-nodes-langchain.lmOpenHuggingFaceInference',
-                ],
-            },
         },
         {
             type: 'ai_languageModel',
             displayName: 'Fallback Model',
-            required: true,
-            filter: {
-                excludedNodes: [
-                    '@n8n/n8n-nodes-langchain.lmCohere',
-                    '@n8n/n8n-nodes-langchain.lmOllama',
-                    'n8n/n8n-nodes-langchain.lmOpenAi',
-                    '@n8n/n8n-nodes-langchain.lmOpenHuggingFaceInference',
-                ],
-            },
         },
         {
             displayName: 'Memory',
@@ -81,10 +63,10 @@ export function getInputs(
         },
     ];
 
-    if (hasOutputParser === false) {
+    if (hasOutputParser !== true) {
         specialInputs = specialInputs.filter((input) => input.type !== 'ai_outputParser');
     }
-    if (needsFallback === false) {
+    if (needsFallback !== true) {
         specialInputs = specialInputs.filter((input) => input.displayName !== 'Fallback Model');
     }
 

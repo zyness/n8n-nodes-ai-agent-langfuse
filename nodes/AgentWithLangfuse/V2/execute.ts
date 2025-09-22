@@ -17,12 +17,12 @@ import type { IExecuteFunctions, INodeExecutionData, ISupplyDataFunctions } from
 import assert from 'node:assert';
 import { CallbackHandler } from 'langfuse-langchain';
 
-import { getPromptInputByType } from '../../../src/utils/helpers';
+import { getPromptInputByType } from '../src/utils/helpers';
 
 import {
     getOptionalOutputParser,
     type N8nOutputParser,
-} from '../../../src/utils/N8nOutputParser';
+} from '../src/utils/N8nOutputParser';
 
 import {
     fixEmptyContentMessage,
@@ -32,9 +32,9 @@ import {
     getTools,
     prepareMessages,
     preparePrompt,
-} from '../../../src/utils/common';
+} from '../src/utils/common';
 
-import { SYSTEM_MESSAGE } from '../../../src/utils/prompt';
+import { SYSTEM_MESSAGE } from '../src/utils/prompt';
 
 /**
  * Creates an agent executor with the given configuration

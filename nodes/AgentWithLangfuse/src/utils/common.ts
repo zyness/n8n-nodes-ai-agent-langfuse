@@ -6,7 +6,7 @@ import type { AgentAction, AgentFinish } from 'langchain/agents';
 import type { ToolsAgentAction } from 'langchain/dist/agents/tool_calling/output_parser';
 import type { BaseChatMemory } from 'langchain/memory';
 import { DynamicStructuredTool, type Tool } from 'langchain/tools';
-import { BINARY_ENCODING, jsonParse, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
+import { BINARY_ENCODING, jsonParse, NodeOperationError } from 'n8n-workflow';
 import type { IExecuteFunctions, ISupplyDataFunctions } from 'n8n-workflow';
 import type { ZodObject } from 'zod';
 import { z } from 'zod';
@@ -22,10 +22,8 @@ import { type N8nOutputParser } from './N8nOutputParser';
  */
 export function getOutputParserSchema(
     outputParser: N8nOutputParser,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): ZodObject<any, any, any, any> {
     const schema =
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (outputParser.getSchema() as ZodObject<any, any, any, any>) ?? z.object({ text: z.string() });
     return schema;
 }
@@ -266,7 +264,7 @@ export async function getChatModel(
     ctx: IExecuteFunctions | ISupplyDataFunctions,
     index: number = 0,
 ): Promise<BaseChatModel | undefined> {
-    const connectedModels = await ctx.getInputConnectionData(NodeConnectionTypes.AiLanguageModel, 0);
+    const connectedModels = await ctx.getInputConnectionData('ai_languageModel', 0);
 
     let model;
 
@@ -299,7 +297,7 @@ export async function getChatModel(
 export async function getOptionalMemory(
     ctx: IExecuteFunctions | ISupplyDataFunctions,
 ): Promise<BaseChatMemory | undefined> {
-    return (await ctx.getInputConnectionData(NodeConnectionTypes.AiMemory, 0)) as
+    return (await ctx.getInputConnectionData('ai_memory', 0)) as
         | BaseChatMemory
         | undefined;
 }

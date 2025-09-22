@@ -5,7 +5,7 @@ import type { BaseMessage } from '@langchain/core/messages';
 import type { Tool } from '@langchain/core/tools';
 import { Toolkit } from 'langchain/agents';
 import type { BaseChatMemory } from 'langchain/memory';
-import { NodeConnectionTypes, NodeOperationError, jsonStringify } from 'n8n-workflow';
+import { NodeOperationError, jsonStringify } from 'n8n-workflow';
 import type {
     AiEvent,
     IDataObject,
@@ -206,7 +206,7 @@ export const getConnectedTools = async (
     escapeCurlyBrackets: boolean = false,
 ) => {
     const connectedTools = (
-        ((await ctx.getInputConnectionData(NodeConnectionTypes.AiTool, 0)) as Array<Toolkit | Tool>) ??
+        ((await ctx.getInputConnectionData('ai_tool', 0)) as Array<Toolkit | Tool>) ??
         []
     ).flatMap((toolOrToolkit) => {
         if (toolOrToolkit instanceof Toolkit) {

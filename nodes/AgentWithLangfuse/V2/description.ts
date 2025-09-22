@@ -1,8 +1,8 @@
 import type { INodeProperties } from 'n8n-workflow';
 
-import { getBatchingOptionFields } from '../../../src/utils/sharedFields';
+import { getBatchingOptionFields } from '../src/utils/sharedFields';
 
-import { commonOptions } from '../../../src/utils/options';
+import { commonOptions } from '../src/utils/options';
 
 const enableStreamingOption: INodeProperties = {
     displayName: 'Enable Streaming',
