@@ -2,6 +2,8 @@
 
 > This project is proudly developed and maintained by **Wistron DXLab**.
 
+![node-example](https://github.com/rorubyy/n8n-nodes-ai-agent-langfuse/blob/main/assets/node-example.png?raw=true)
+
 An n8n community node that integrates [Langfuse](https://langfuse.com) observability into your AI Agent workflows.
 Supports tool-calling agents, memory, structured output, and full tracing of reasoning steps.
 
@@ -143,7 +145,11 @@ Here’s how a single request looks inside Langfuse:
 - [Langfuse Documentation](https://docs.langfuse.com/)
 - [n8n Community Forum](https://community.n8n.io/)
 - [Langfuse GitHub](https://github.com/langfuse/langfuse)
+- [n8n-nodes-langfuse-ai-agent](https://github.com/matanzvili/n8n-nodes-langfuse-ai-agent)
 
 ## Version History
 
 - **v0.1** – Initial release with AI Agent + Langfuse integration
+
+## License
+MIT © 2025 Wistron DXLab  

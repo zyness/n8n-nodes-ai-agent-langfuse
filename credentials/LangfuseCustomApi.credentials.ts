@@ -5,9 +5,9 @@ import {
 	ICredentialTestRequest,
 } from 'n8n-workflow';
 
-export class LangfuseApi implements ICredentialType {
-	name = 'langfuseApi';
-	icon = 'file:LangfuseApi.icon.svg' as const;
+export class LangfuseCustomApi implements ICredentialType {
+	name = 'langfuseCustomApi';
+	icon = 'file:LangfuseCustomApi.icon.svg' as const;
 
 	displayName = 'Langfuse API';
 	documentationUrl = 'https://langfuse.com/docs/api#authentication';

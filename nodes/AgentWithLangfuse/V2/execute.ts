@@ -237,7 +237,7 @@ export async function toolsAgentExecute(
 
 
             // Langfuse
-            const langfuseCreds = await this.getCredentials('langfuseApi');
+            const langfuseCreds = await this.getCredentials('langfuseCustomApi');
             const langfuseMetadata = this.getNodeParameter('langfuseMetadata', itemIndex, {}) as {
                 customMetadata?: Record<string, unknown>;
                 sessionId?: string;

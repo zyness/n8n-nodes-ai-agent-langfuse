@@ -46,7 +46,7 @@ export class AgentWithLangfuse implements INodeType {
 			}}`,
 		outputs: ['main'],
 		credentials: [
-			{ name: 'langfuseApi', required: true },
+			{ name: 'langfuseCustomApi', required: true },
 		],
 		properties: [
 			{
