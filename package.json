@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-ai-agent-langfuse",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "n8n community node: AI Agent + Langfuse",
   "keywords": [
     "n8n-community-node-package",
@@ -61,8 +61,6 @@
     "eslint-plugin-n8n-nodes-base": "^1.16.3",
     "gulp": "^5.0.1",
     "gulp-cli": "^3.1.0",
-    "n8n-node-dev": "^0.100.0",
-    "n8n-nodes-base": "^1.106.3",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   },

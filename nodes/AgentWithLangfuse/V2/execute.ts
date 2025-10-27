@@ -10,11 +10,15 @@ import {
     createToolCallingAgent,
 } from 'langchain/agents';
 import type { BaseChatMemory } from 'langchain/memory';
-import type { DynamicStructuredTool, Tool } from 'langchain/tools';
+import { DynamicStructuredTool } from 'langchain/tools';
+import type { Tool } from 'langchain/tools';
 import omit from 'lodash/omit';
+
 import { jsonParse, NodeOperationError, sleep } from 'n8n-workflow';
+
 import type { IExecuteFunctions, INodeExecutionData, ISupplyDataFunctions } from 'n8n-workflow';
 import assert from 'node:assert';
+
 import { CallbackHandler } from 'langfuse-langchain';
 
 import { getPromptInputByType } from '../src/utils/helpers';
@@ -35,6 +39,12 @@ import {
 } from '../src/utils/common';
 
 import { SYSTEM_MESSAGE } from '../src/utils/prompt';
+
+/**
+ * Converts a JSON Schema to a loose Zod schema.
+ * It maps JSON Schema "properties" into Zod object fields,
+ * but defaults to z.any() if type is unknown.
+ */
 
 /**
  * Creates an agent executor with the given configuration
@@ -235,13 +245,40 @@ export async function toolsAgentExecute(
                 passthroughBinaryImages?: boolean;
             };
 
+            const wrappedTools: Array<any> = [];
+            for (const t of tools) {
+                // MCP Toolkit
+                if ('tools' in (t as any) && Array.isArray((t as any).tools)) {
+                    const innerTools = (t as any).tools;
+                    wrappedTools.push(...innerTools);
+                    continue;
+                }
+
+                // normal tool
+                wrappedTools.push(t);
+            }
+
+            const toolsFinal = wrappedTools;
 
             // Langfuse
             const langfuseCreds = await this.getCredentials('langfuseCustomApi');
-            const langfuseMetadata = this.getNodeParameter('langfuseMetadata', itemIndex, {}) as {
-                customMetadata?: Record<string, unknown>;
-                sessionId?: string;
-                userId?: string;
+
+            const rawMetadata = this.getNodeParameter('langfuseMetadata', itemIndex, {}) as any;
+            let parsedCustomMetadata: Record<string, unknown> | undefined;
+            if (typeof rawMetadata.customMetadata === 'string') {
+                try {
+                    parsedCustomMetadata = JSON.parse(rawMetadata.customMetadata);
+                } catch (e) {
+                    this.logger.warn('Invalid JSON in Langfuse metadata, ignoring customMetadata.');
+                }
+            } else {
+                parsedCustomMetadata = rawMetadata.customMetadata;
+            }
+
+            const langfuseMetadata = {
+                customMetadata: parsedCustomMetadata,
+                sessionId: rawMetadata.sessionId,
+                userId: rawMetadata.userId,
             };
 
             const langfuseHandler = new CallbackHandler({
@@ -264,7 +301,7 @@ export async function toolsAgentExecute(
             // Create executors for primary and fallback models
             const executor = createAgentExecutor(
                 model,
-                tools,
+                toolsFinal,
                 prompt,
                 options,
                 outputParser,
