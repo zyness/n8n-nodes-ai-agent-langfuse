@@ -1,0 +1,24 @@
+import type { BaseChatMessageHistory } from '@langchain/core/chat_history';
+import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
+import type { BaseMessage } from '@langchain/core/messages';
+import type { Tool } from '@langchain/core/tools';
+import type { BaseChatMemory } from 'langchain/memory';
+import type { AiEvent, IDataObject, IExecuteFunctions, ISupplyDataFunctions, IWebhookFunctions } from 'n8n-workflow';
+export declare function getMetadataFiltersValues(ctx: IExecuteFunctions | ISupplyDataFunctions, itemIndex: number): Record<string, never> | undefined;
+export declare function isBaseChatMemory(obj: unknown): obj is BaseChatMemory;
+export declare function isBaseChatMessageHistory(obj: unknown): obj is BaseChatMessageHistory;
+export declare function isChatInstance(model: unknown): model is BaseChatModel;
+export declare function isToolsInstance(model: unknown): model is Tool;
+export declare function getPromptInputByType(options: {
+    ctx: IExecuteFunctions | ISupplyDataFunctions;
+    i: number;
+    promptTypeKey: string;
+    inputKey: string;
+}): string;
+export declare function getSessionId(ctx: ISupplyDataFunctions | IWebhookFunctions, itemIndex: number, selectorKey?: string, autoSelect?: string, customKey?: string): string;
+export declare function logAiEvent(executeFunctions: IExecuteFunctions | ISupplyDataFunctions, event: AiEvent, data?: IDataObject): void;
+export declare function serializeChatHistory(chatHistory: BaseMessage[]): string;
+export declare function escapeSingleCurlyBrackets(text?: string): string | undefined;
+export declare const getConnectedTools: (ctx: IExecuteFunctions | IWebhookFunctions | ISupplyDataFunctions, enforceUniqueNames: boolean, convertStructuredTool?: boolean, escapeCurlyBrackets?: boolean) => Promise<Tool<any>[]>;
+export declare function unwrapNestedOutput(output: Record<string, unknown>): Record<string, unknown>;
+export declare function hasLongSequentialRepeat(text: string, threshold?: number): boolean;
