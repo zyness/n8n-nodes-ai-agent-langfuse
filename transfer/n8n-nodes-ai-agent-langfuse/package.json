@@ -1,5 +1,5 @@
 {
-  "name": "@zyness/n8n-nodes-ai-agent-langfuse",
+  "name": "n8n-nodes-ai-agent-langfuse",
   "version": "0.1.22",
   "description": "n8n community node: AI Agent + Langfuse",
   "keywords": [
@@ -11,12 +11,12 @@
   "license": "MIT",
   "homepage": "",
   "author": {
-    "name": "zyness",
-    "email": "wasjke@gmail.com"
+    "name": "Ruby Lo",
+    "email": "rorubyy@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyness/n8n-nodes-ai-agent-langfuse.git"
+    "url": "https://github.com/rorubyy/n8n-nodes-ai-agent-langfuse.git"
   },
   "engines": {
     "node": ">=20.15"
